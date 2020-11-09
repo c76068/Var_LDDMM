@@ -45,5 +45,7 @@ Basic dependencies:
 
 Var_LDDMM also includes GPU acceleration implementations using [KeOps](https://www.kernel-operations.io/keops/matlab/index.html) library (libkeops-master in folder '/src/'). It must be used on a machine equipped with an NVIDIA graphics card with recent CUDA drivers installed.
 
-Optional dependencies:
-* [KeOps](https://www.kernel-operations.io/keops/matlab/index.html)
+Optional dependencies (GPU acceleration):
+* [KeOps](https://www.kernel-operations.io/keops/matlab/index.html): libkeops-master in folder '/src/' 
+
+## Usage
