@@ -1,17 +1,6 @@
 # Var_LDDMM
 
-This is a MATLAB implementation of the papers [Diffeomorphic Registration of Discrete Geometric Distributions](https://www.worldscientific.com/doi/abs/10.1142/9789811200137_0003) and [Metrics, quantization and registration in varifold spaces](https://arxiv.org/abs/1903.11196) by Hsi-Wei Hsieh and [Nicolas Charon](http://www.cis.jhu.edu/~charon/). The package provides tools to register, intepolate and compress geometrical shapes (such as point clouds, discrete cruves or triangulated surfaces) being represented as ***discrete varifolds*** based on ***LDDMM*** framework with ***kernel varifold distances***. Here's an example of amygdala surfaces matching example.
-
-<table align='center'>
-<tr align='center'>
-<td> Amygdala surfaces</td>
-<td> Varifold representation</td>
-</tr>
-<tr>
-<td><img src = 'images/amyg_surface.gif'>
-<td><img src = 'images/amyg_varifold.gif'>
-</tr>
-</table>
+This is a MATLAB implementation of the papers [Diffeomorphic Registration of Discrete Geometric Distributions](https://www.worldscientific.com/doi/abs/10.1142/9789811200137_0003) and [Metrics, quantization and registration in varifold spaces](https://arxiv.org/abs/1903.11196) by Hsi-Wei Hsieh and [Nicolas Charon](http://www.cis.jhu.edu/~charon/). The package provides tools to register, intepolate and compress geometrical shapes (such as point clouds, discrete cruves or triangulated surfaces) being represented as ***discrete varifolds*** based on ***LDDMM*** framework with ***kernel varifold distances***. 
 
 ## References
 If you use this code for your research, please cite our papers:
@@ -95,4 +84,64 @@ Use the function `proj2_M_dirac` to compress a discrete varifold to a more spars
 - Output:
   - `Y`: compressed varifold
   - `summary`: summary of the optimization
+  
+### Examples:
+See the two script files in the `Demo scripts` folder for some examples of basic use of the code. The first script `script_Bone_Bottle_quantization_registration.m` computes the successive compressions and registrations of two curves.
+<table align='center'>
+<tr align='center'>
+<td> Relative quantization errors </td>
+<td> M=25</td>
+<td> M=40</td>
+<td> M=150</td>
+</tr>
+<tr>
+<td><img src = 'images/Bone_Bottle_quantization_energy.png'>
+<td><img src = 'images/Bottle_quan25.png'>
+<td><img src = 'images/Bottle_quan40.png'>
+<td><img src = 'images/Bottle_quan150.png'>
+</tr>
+<tr>
+<td> Difference to thegroundtruth optimal energy </td>
+<td> M=25</td>
+<td> M=40</td>
+<td> M=150</td>
+</tr>
+<tr>
+<td><img src = 'images/Bone_Bottle_quantization_energy.png'>
+<td><img src = 'images/Bottle_quan_matching25.png'>
+<td><img src = 'images/Bottle_quan_matching40.png'>
+<td><img src = 'images/Bottle_quan_matching150.png'>
+</tr>
+</table>
 
+The second script `script_amygdala.m` register two amygdala surfaces using GPU acceleration:
+<table align='center'>
+<tr align='center'>
+<td> Amygdala surfaces</td>
+<td> Varifold representation</td>
+</tr>
+<tr>
+<td><img src = 'images/amyg_surface.gif'>
+<td><img src = 'images/amyg_varifold.gif'>
+</tr>
+</table>
+
+## Licence
+
+This program is free software: you can redistribute it and/or modify it under 
+the terms of the GNU General Public License as published by the Free Software 
+Foundation, either version 3 of the License, or (at your option) any later 
+version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT 
+ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS 
+FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with 
+this program. If not, see http://www.gnu.org/licenses/.
+
+
+## Contacts
+
+* Nicolas Charon (charon@cis.jhu.edu)
+* Hsi-Wei Hsieh (hhsieh9@jhu.edu)
