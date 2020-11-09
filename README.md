@@ -51,7 +51,7 @@ Optional dependencies (GPU acceleration):
 ## Usage
 ### Registration:
 We implemented *geodesic shooting* framework and in this framework, the optimization in LDDMM is minimize the cost function with respect to the ***momenta*** variables.  
-Use 'registration' function for LDDMM varifolds matching algorithm:
+Use `registration` function for LDDMM varifolds matching algorithm:
 ```Matlab
 [P_op,summary]= registration(Source,Target,defo,objfun,options)
 ```
@@ -82,3 +82,17 @@ Use 'registration' function for LDDMM varifolds matching algorithm:
 - Output:
   - `P_op`: the optimized momenta stored in a structure
   - `summary`: summary of the optimization
+
+### Compression/Quantization:
+Use the function `proj2_M_dirac` to compress a discrete varifold to a more sparse discrete varifold with `M` diracs:  
+```Matlab
+[Y,summary] = proj2_M_dirac(X,X_ini,objfun,options)
+```
+- Input:
+  - `X`: full discrete varifold to be compressed
+  - `X_ini`: initial discrete varifold with `M` diracs
+  - `objfun` and `options`: same as in `registration`, the field `objfun.lambda` is not needed in compression.
+- Output:
+  - `Y`: compressed varifold
+  - `summary`: summary of the optimization
+
