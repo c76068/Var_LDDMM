@@ -37,6 +37,15 @@ If you use this code for your research, please cite our papers:
 ```
 
 ## Set up
+To run functions without GPU acceleration, it only requires MATLAB and [HANSO](https://cs.nyu.edu/overton/software/hanso/) library for L_BFGS optimization. We have put HANSO in the folder `/src/optimization/`.
 
-Dependencies:
+Basic dependencies:
 * MATLAB
+* [HANSO version 2.2](https://cs.nyu.edu/overton/software/hanso/): in `/src/optimization/`
+
+Var_LDDMM also includes GPU acceleration implementations using [KeOps](https://www.kernel-operations.io/keops/matlab/index.html) library (libkeops-master in folder '/src/'). It must be used on a machine equipped with an NVIDIA graphics card with recent CUDA drivers installed.
+
+Optional dependencies (GPU acceleration):
+* [KeOps](https://www.kernel-operations.io/keops/matlab/index.html): libkeops-master in folder '/src/' 
+
+## Usage
