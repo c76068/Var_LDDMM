@@ -49,3 +49,36 @@ Optional dependencies (GPU acceleration):
 * [KeOps](https://www.kernel-operations.io/keops/matlab/index.html): libkeops-master in folder '/src/' 
 
 ## Usage
+### Registration:
+We implemented *geodesic shooting* framework and in this framework, the optimization in LDDMM is minimize the cost function with respect to the ***momenta*** variables.  
+Use 'registration' function for LDDMM varifolds matching algorithm:
+```Matlab
+[P_op,summary]= registration(Source,Target,defo,objfun,options)
+```
+- Input:
+  - `Source`/`Target`: source/target shape represented as a discrete varifold (structure):
+    - `Source.center`: a `N-by-m` array contains positions of `N` diracs in dimension `m` 
+    - `Source.vector`: a cell array with length `d` carries a frame for the grassmanian, each entry `Source.vector{i}` is a `N-by-m` array
+  - `defo`: options for deformation and numerical ODE:
+    - `defo.kernel_size_mom`: deformation kernel size
+    - `defo.nb_euler_steps`: number of steps in the forward and backward integration
+    - `defo.odemethod`: numerical scheme for ODE, possible values: `'rk4'` or `'middle_point'`
+    - `defo.method`: compute kernel operation in deformation using only matlab or GPU with keops, possible values: `'keops'` or `'matlab'`
+
+  - `objfun`: options for varifold data attachment term:
+    - `objfun.kernel_geom`: spatial kernel type, possible values:`'gaussian'` or `'cauchy'`
+    - `objfun.kernel_size_geom`: spatial kernel sizes in an array `[a_1,...,a_K]`, successively runs K times optimizations with kernel sizes `a_1,...,a_K`, and each optimization uses momemta from previous step as initials. The length of the array should be consistant with `kernel_size_grass`
+    - `objfun.kernel_grass`: Grassmanian/orientation kernel type, possible values: `'linear'`, `'gaussian_oriented'`, `'gaussian_unoriented'`, `'binet'`
+    - `objfun.kernel_size_grass`: Grassmanian/orientation kernel sizes in an array `[b_1,...,b_K]`
+    - `objfun.method`='keops': compute kernel operation in data attachment term using only matlab or GPU with keops, possible values: `'keops'` or `'matlab'`
+    - `objfun.lambda`: weight parameter in front of the data attachment term
+
+  - `options`: options for L-BFGS:
+    - `options.record_history`: `true` or `false`
+    - `options.maxit`: max number of iterations(default `1000`) (applies to each starting vector)
+    - `options.nvec`: `0` for full BFGS matrix update, otherwise specifies number of vectors to save and use in the limited memory updates (default: `0`)
+    - `options.prtlevel`: one of `0` (no printing), `1` (minimal), `2` (verbose) (default: `1`)
+
+- Output:
+  - `P_op`: the optimized momenta stored in a structure
+  - `summary`: summary of the optimization
