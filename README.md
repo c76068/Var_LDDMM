@@ -26,7 +26,7 @@ If you use this code for your research, please cite our papers:
 ```
 
 ## Set up
-To run functions without GPU acceleration, you will only need MATLAB and the [HANSO](https://cs.nyu.edu/overton/software/hanso/) library for L_BFGS optimization. We have put the HANSO routines in the folder `/src/optimization/`.
+To run functions without GPU acceleration, you will only need MATLAB and the [HANSO](https://cs.nyu.edu/overton/software/hanso/) library for L_BFGS optimization. We have included the HANSO routines in the folder `/src/optimization/` for convenience.
 
 Basic dependencies:
 * MATLAB
