@@ -1,6 +1,6 @@
 # Var_LDDMM
 
-This is a MATLAB implementation of the papers [Diffeomorphic Registration of Discrete Geometric Distributions](https://www.worldscientific.com/doi/abs/10.1142/9789811200137_0003) and [Metrics, quantization and registration in varifold spaces](https://arxiv.org/abs/1903.11196) by Hsi-Wei Hsieh and [Nicolas Charon](http://www.cis.jhu.edu/~charon/). The package provides tools to register, intepolate and compress geometrical shapes (such as point clouds, discrete cruves or triangulated surfaces) being represented as ***discrete varifolds*** based on ***LDDMM*** framework with ***kernel varifold distances***. 
+This is a MATLAB implementation of the papers [Diffeomorphic Registration of Discrete Geometric Distributions](https://www.worldscientific.com/doi/abs/10.1142/9789811200137_0003) and [Metrics, quantization and registration in varifold spaces](https://arxiv.org/abs/1903.11196) by Hsi-Wei Hsieh and [Nicolas Charon](http://www.cis.jhu.edu/~charon/). The package provides tools to register, interpolate and compress geometrical shapes (such as point clouds, discrete cruves or triangulated surfaces) being represented as ***discrete varifolds*** based on ***LDDMM*** framework with ***kernel varifold distances***. 
 
 ## References
 If you use this code for your research, please cite our papers:
@@ -26,20 +26,20 @@ If you use this code for your research, please cite our papers:
 ```
 
 ## Set up
-To run functions without GPU acceleration, it only requires MATLAB and [HANSO](https://cs.nyu.edu/overton/software/hanso/) library for L_BFGS optimization. We have put HANSO in the folder `/src/optimization/`.
+To run functions without GPU acceleration, you will only need MATLAB and the [HANSO](https://cs.nyu.edu/overton/software/hanso/) library for L_BFGS optimization. We have put the HANSO routines in the folder `/src/optimization/`.
 
 Basic dependencies:
 * MATLAB
 * [HANSO version 2.2](https://cs.nyu.edu/overton/software/hanso/): in `/src/optimization/`
 
-Var_LDDMM also includes GPU acceleration implementations using [KeOps](https://www.kernel-operations.io/keops/matlab/index.html) library (libkeops-master in folder '/src/'). It must be used on a machine equipped with an NVIDIA graphics card with recent CUDA drivers installed.
+Var_LDDMM also includes GPU acceleration implementations using the [KeOps](https://www.kernel-operations.io/keops/matlab/index.html) library (libkeops-master in folder '/src/'). It must be used on a machine equipped with an NVIDIA graphics card with recent CUDA drivers installed.
 
 Optional dependencies (GPU acceleration):
 * [KeOps](https://www.kernel-operations.io/keops/matlab/index.html): libkeops-master in folder '/src/' 
 
 ## Usage
 ### Registration:
-We implemented *geodesic shooting* framework and in this framework, the optimization in LDDMM is minimize the cost function with respect to the ***momenta*** variables.  
+The approach relies on the Large Deformation Diffeomorphic Metric Mapping (LDDMM) model with *geodesic shooting* scheme in which the cost function is minimized with respect to the ***momenta*** variables.  
 Use `registration` function for LDDMM varifolds matching algorithm:
 ```Matlab
 [P_op,summary]= registration(Source,Target,defo,objfun,options)
