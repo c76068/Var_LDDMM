@@ -1,6 +1,6 @@
 # Var_LDDMM
 
-This is a MATLAB implementation of the papers [Diffeomorphic Registration of Discrete Geometric Distributions](https://www.worldscientific.com/doi/abs/10.1142/9789811200137_0003) and [Metrics, quantization and registration in varifold spaces](https://arxiv.org/abs/1903.11196) by Hsi-Wei Hsieh and [Nicolas Charon](http://www.cis.jhu.edu/~charon/). The package provides tools to register, interpolate and compress geometrical shapes (such as point clouds, discrete cruves or triangulated surfaces) being represented as ***discrete varifolds*** based on ***LDDMM*** framework with ***kernel varifold distances***. 
+This is a MATLAB implementation of the papers [Diffeomorphic Registration of Discrete Geometric Distributions](https://www.worldscientific.com/doi/abs/10.1142/9789811200137_0003) and [Metrics, quantization and registration in varifold spaces](https://arxiv.org/abs/1903.11196) by Hsi-Wei Hsieh and [Nicolas Charon](http://www.cis.jhu.edu/~charon/). The package provides tools to permorm diffeomorphic registration, interpolation and compression of geometric shapes (such as point clouds, discrete cruves or triangulated surfaces) that are represented as ***discrete varifolds***.
 
 ## References
 If you use this code for your research, please cite our papers:
@@ -39,7 +39,7 @@ Optional dependencies (GPU acceleration):
 
 ## Usage
 ### Registration:
-The approach relies on the Large Deformation Diffeomorphic Metric Mapping (LDDMM) model with *geodesic shooting* scheme in which the cost function is minimized with respect to the ***momenta*** variables.  
+The approach relies on the Large Deformation Diffeomorphic Metric Mapping (LDDMM) model with a *geodesic shooting* scheme. The cost function, which is the sum of a deformation penalty and a kernel fidelity metric between the transformed source and the target varifolds, is minimized with respect to the ***momenta*** variables of the deformation.  
 Use `registration` function for LDDMM varifolds matching algorithm:
 ```Matlab
 [P_op,summary]= registration(Source,Target,defo,objfun,options)
@@ -50,13 +50,13 @@ Use `registration` function for LDDMM varifolds matching algorithm:
     - `Source.vector`: a cell array with length `d` carries a frame for the grassmanian, each entry `Source.vector{i}` is a `N-by-m` array
   - `defo`: options for deformation and numerical ODE:
     - `defo.kernel_size_mom`: deformation kernel size
-    - `defo.nb_euler_steps`: number of steps in the forward and backward integration
-    - `defo.odemethod`: numerical scheme for ODE, possible values: `'rk4'` or `'middle_point'`
-    - `defo.method`: compute kernel operation in deformation using only matlab or GPU with keops, possible values: `'keops'` or `'matlab'`
+    - `defo.nb_euler_steps`: number of time steps in the forward and backward integration
+    - `defo.odemethod`: numerical scheme for ODE integration, possible values: `'rk4'` or `'middle_point'`
+    - `defo.method`: compute the deformation kernel operations using only matlab or GPU with keops, possible values: `'keops'` or `'matlab'`
 
   - `objfun`: options for varifold data attachment term:
     - `objfun.kernel_geom`: spatial kernel type, possible values:`'gaussian'` or `'cauchy'`
-    - `objfun.kernel_size_geom`: spatial kernel sizes in an array `[a_1,...,a_K]`, successively runs K times optimizations with kernel sizes `a_1,...,a_K`, and each optimization uses momemta from previous step as initials. The length of the array should be consistant with `kernel_size_grass`
+    - `objfun.kernel_size_geom`: spatial kernel sizes in an array `[a_1,...,a_K]`, successively runs K times optimizations with kernel sizes `a_1,...,a_K`, with each optimization using the estimated momemta from the previous run as initialization. The length of the array should be consistent with `kernel_size_grass`
     - `objfun.kernel_grass`: Grassmanian/orientation kernel type, possible values: `'linear'`, `'gaussian_oriented'`, `'gaussian_unoriented'`, `'binet'`
     - `objfun.kernel_size_grass`: Grassmanian/orientation kernel sizes in an array `[b_1,...,b_K]`
     - `objfun.method`='keops': compute kernel operation in data attachment term using only matlab or GPU with keops, possible values: `'keops'` or `'matlab'`
@@ -64,16 +64,16 @@ Use `registration` function for LDDMM varifolds matching algorithm:
 
   - `options`: options for L-BFGS:
     - `options.record_history`: `true` or `false`
-    - `options.maxit`: max number of iterations(default `1000`) (applies to each starting vector)
+    - `options.maxit`: maximum number of iterations(default `1000`) (applies to each starting vector)
     - `options.nvec`: `0` for full BFGS matrix update, otherwise specifies number of vectors to save and use in the limited memory updates (default: `0`)
     - `options.prtlevel`: one of `0` (no printing), `1` (minimal), `2` (verbose) (default: `1`)
 
 - Output:
   - `P_op`: the optimized momenta stored in a structure
-  - `summary`: summary of the optimization
+  - `summary`: summary of the optimization procedure
 
 ### Compression/Quantization:
-Use the function `proj2_M_dirac` to compress a discrete varifold to a more sparse discrete varifold with `M` diracs:  
+Use the function `proj2_M_dirac` to compress a discrete varifold to a sparser discrete varifold with exactly `M` diracs:  
 ```Matlab
 [Y,summary] = proj2_M_dirac(X,X_ini,objfun,options)
 ```
@@ -83,7 +83,7 @@ Use the function `proj2_M_dirac` to compress a discrete varifold to a more spars
   - `objfun` and `options`: same as in `registration`, the field `objfun.lambda` is not needed in compression.
 - Output:
   - `Y`: compressed varifold
-  - `summary`: summary of the optimization
+  - `summary`: summary of the optimization procedure
   
 ### Examples:
 See the two script files in the `Demo scripts` folder for some examples of basic use of the code. The first script `script_Bone_Bottle_quantization_registration.m` computes the successive compressions and registrations of two curves.
@@ -114,7 +114,7 @@ See the two script files in the `Demo scripts` folder for some examples of basic
 </tr>
 </table>
 
-The second script `script_amygdala.m` register two amygdala surfaces using GPU acceleration:
+The second script `script_amygdala.m` registers two amygdala surfaces using GPU acceleration:
 <table align='center'>
 <tr align='center'>
 <td> Amygdala surfaces</td>
