@@ -43,7 +43,7 @@ objfun.kernel_size_geom = [3];% spatial kernel size
 objfun.kernel_grass = 'gaussian_oriented'; %Grassmanian/orientation kernel type, possible values: 'linear', 'gaussian_oriented', 'gaussian_unoriented', 'binet'
 objfun.kernel_size_grass = [1.1]; %Grassmanian/orientation kernel size
 objfun.method='keops'; % compute kernel operation in data attachment term using matlab or keops, possible values: 'keops' or 'matlab'
-objfun.lambda=10;
+objfun.lambda=10; %weight parameter in front of the data attachment term
 
 %Set options for L-BFGS-----------------------------
 options.record_history = true;
