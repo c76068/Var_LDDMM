@@ -86,7 +86,7 @@ Use the function `proj2_M_dirac` to compress a discrete varifold to a sparser di
   - `summary`: summary of the optimization procedure
   
 ### Examples:
-See the two script files in the `Demo scripts` folder for some examples of basic use of the code. The first script `script_Bone_Bottle_quantization_registration.m` computes the compressions and registrations of two curves for M= 25, 40, and 150.
+See the two script files in the `Demo scripts` folder for some examples of basic use of the code. The first script `script_Bone_Bottle.m` computes the compressions and registrations of two curves for M= 25, 40, and 150.
 <table align='center'>
 <tr align='center'>
 <td> Relative quantization errors </td>
